@@ -28,6 +28,7 @@ class CoursesController < ApplicationController
   def create
     @user = User.find(current_user.id)
     @course = @user.courses.create(course_params)
+    @course.groups.create
     # @course = Course.new(course_params)
 
     respond_to do |format|
