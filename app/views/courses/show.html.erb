@@ -16,7 +16,7 @@
 </p>
 
 <% @groups = @course.groups %>
-<% if  @groups.first.nil? %>
+<% if  @groups.size == 1 %>
   <strong>There is currently no group</strong>
 <% else %>
   <h1>Groups</h1>
@@ -30,14 +30,15 @@
     </thead>
 
     <tbody>
-      
       <% @groups.each do |group| %>
-        <tr>
-          <td><%= group.name %></td>
-          <td><%= link_to 'Show', group %></td>
-          <td><%= link_to 'Edit', edit_group_path(group) %></td>
-          <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+        <% if group != Group.first %>
+          <tr>
+            <td><%= group.name %></td>
+            <td><%= link_to 'Show', group %></td>
+            <td><%= link_to 'Edit', edit_group_path(group) %></td>
+            <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
