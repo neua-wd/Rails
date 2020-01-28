@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_152651) do
+ActiveRecord::Schema.define(version: 2020_01_28_153623) do
 
   create_table "courses", force: :cascade do |t|
     t.string "title"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_152651) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.string "name", default: "NOGROUP"
+    t.string "name", default: "Waiting to be named.."
     t.boolean "project_status", default: false
     t.integer "score"
     t.integer "course_id", null: false
