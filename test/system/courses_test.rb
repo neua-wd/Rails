@@ -16,7 +16,7 @@ class CoursesTest < ApplicationSystemTestCase
 
     fill_in "Description", with: @course.description
     fill_in "Title", with: @course.title
-    fill_in "User id", with: @course.user_id_id
+    fill_in "User id", with: @course.user_id
     click_on "Create Course"
 
     assert_text "Course was successfully created"
@@ -29,7 +29,7 @@ class CoursesTest < ApplicationSystemTestCase
 
     fill_in "Description", with: @course.description
     fill_in "Title", with: @course.title
-    fill_in "User id", with: @course.user_id_id
+    fill_in "User id", with: @course.user_id
     click_on "Update Course"
 
     assert_text "Course was successfully updated"
