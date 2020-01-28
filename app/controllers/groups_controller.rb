@@ -14,7 +14,9 @@ class GroupsController < ApplicationController
 
   # GET /groups/new
   def new
-    @group = Group.new
+    @course = Course.find(current_user.id)
+    @group = @course.groups.build
+    # @group = Group.new
   end
 
   # GET /groups/1/edit
@@ -24,11 +26,14 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
-    @group = Group.new(group_params)
+    @course = Course.find(params[:course_id])
+    @group = @course.groups.create
+    # redirect_to 'courses'
+    # @group = Group.new(group_params)
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to @course, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -54,9 +59,10 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
+    @course = Course.find(@group.course_id)
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
+      format.html { redirect_to @course, notice: 'Group was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +75,8 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
+      name = "Waiting to be named.."
+      project_status = false
       params.require(:group).permit(:name, :project_status, :score, :course_id)
     end
 end
