@@ -65,7 +65,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def devise_permitted_parameters
     if resource_params[:role] == ""
-      set_flash_message :notice, :no_role
+      set_flash_message :alert, :no_role
       redirect_to new_user_registration_path
     else
       devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :role, allow_blank: false])
