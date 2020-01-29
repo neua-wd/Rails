@@ -26,13 +26,12 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
-    @user = User.find(current_user.id)
-    @course = @user.courses.create(course_params)
-    @course.groups.create
-    # @course = Course.new(course_params)
-
+    @course = Course.new(course_params)
+    @course.user_id = current_user.id
+    
     respond_to do |format|
       if @course.save
+        @course.groups.create
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
@@ -66,6 +65,14 @@ class CoursesController < ApplicationController
     end
   end
 
+  # def subscribe
+  #   Subscription.create(user_id: current_user.id, course_id: @course.id)
+  #   respond_to do |format|
+  #     format.html { redirect_to courses_url, notice: 'Subscription was successful.' }
+  #     format.json { head :no_content }
+  #   end
+  # end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course
@@ -74,7 +81,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      user_id = current_user.id
       params.require(:course).permit(:title, :description, :user_id)
     end
 end

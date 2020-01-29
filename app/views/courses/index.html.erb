@@ -2,7 +2,7 @@
 
 <h1>Courses</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Title</th>
@@ -18,9 +18,20 @@
         <td><%= course.title %></td>
         <td><%= course.description %></td>
         <td><%= course.user_id %></td>
-        <td><%= link_to 'Show', course %></td>
-        <td><%= link_to 'Edit', edit_course_path(course) %></td>
-        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'See course', course %></td>
+        <% if user_signed_in? and course.user_id == current_user.id %>
+          <td><%= link_to 'Delete', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+          <% if user_signed_in? and course.subscriptions.exists?(user_id: current_user.id) %>
+            <td>Subscribed</td>
+          <% else %>
+            <td>
+              <%= form_with(model: [ course, course.subscriptions.build ], local: true) do |form| %>
+                <%= form.submit 'Subscribe' %>
+              <% end %>
+            </td>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
