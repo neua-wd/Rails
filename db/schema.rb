@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_162850) do
+ActiveRecord::Schema.define(version: 2020_01_29_123958) do
+
+  create_table "assignments", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "user_id", null: false
+    t.integer "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_assignments_on_group_id"
+    t.index ["user_id"], name: "index_assignments_on_user_id"
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string "title"
@@ -43,6 +54,26 @@ ActiveRecord::Schema.define(version: 2020_01_28_162850) do
     t.index ["user_id"], name: "index_instructor_profiles_on_user_id"
   end
 
+  create_table "student_profiles", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "citizen_id"
+    t.string "student_id"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_student_profiles_on_user_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "course_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_subscriptions_on_course_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -56,7 +87,12 @@ ActiveRecord::Schema.define(version: 2020_01_28_162850) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "assignments", "groups"
+  add_foreign_key "assignments", "users"
   add_foreign_key "courses", "users"
   add_foreign_key "groups", "courses"
   add_foreign_key "instructor_profiles", "users"
+  add_foreign_key "student_profiles", "users"
+  add_foreign_key "subscriptions", "courses"
+  add_foreign_key "subscriptions", "users"
 end
