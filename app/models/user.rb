@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :instructor_profile
+  has_one :student_profile
 
   has_many :group_additions
   has_many :groups, through: :group_additions
