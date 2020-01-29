@@ -9,6 +9,10 @@ class UserPolicy < ApplicationPolicy
     user.role == "Instructor"
   end
 
+  def add_user?
+    user.role == "Instructor"
+  end
+
   def update?
     user.role == "Instructor"
   end

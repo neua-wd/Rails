@@ -13,4 +13,8 @@ class StudentProfilePolicy < ApplicationPolicy
   def update?
     user.role == "Instructor"
   end
+
+  def destroy?
+    user.role == "Instructor"
+  end
 end
