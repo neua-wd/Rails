@@ -13,20 +13,24 @@ class CoursesController < ApplicationController
   end
 
   # GET /courses/new
-  def new
+  def new 
     @user = User.find(current_user.id)
     @course = @user.courses.build
+    authorize @course
     # @course = Course.new
   end
 
   # GET /courses/1/edit
   def edit
+    @course = Course.find(params[:id])
+    authorize @course
   end
 
   # POST /courses
   # POST /courses.json
   def create
     @course = Course.new(course_params)
+    authorize @course
     @course.user_id = current_user.id
     
     respond_to do |format|
@@ -44,6 +48,7 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1
   # PATCH/PUT /courses/1.json
   def update
+    authorize @course
     respond_to do |format|
       if @course.update(course_params)
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
