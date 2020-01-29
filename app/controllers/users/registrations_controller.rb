@@ -53,7 +53,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    courses_path
+    if resource.role == "Instructor"
+      new_instructor_profile_path
+    elsif resource.role == "Student"
+      new_student_profile_path
+    end
   end
 
   # The path used after sign up for inactive accounts.

@@ -1,0 +1,27 @@
+<% @course = Course.find(params[:format]) %>
+<table class="table">
+    <thead>
+      <th>Name</th>
+    </thead>
+    <% @course.subscriptions.each do |subscription| %>
+      <% @attendant = User.find(subscription.user_id) %>
+      
+      <% if @attendant.role == "Instructor" %>
+        <tr>
+          <td>
+              <%= @attendant.instructor_profile.first_name %> 
+              <%= @attendant.instructor_profile.last_name %> 
+          </td>
+          <td><%= link_to 'See details', @attendant.instructor_profile %></td>
+        </tr>
+      <% elsif @attendant.role == "Student" %>
+        <tr>
+          <td>
+            <%= @attendant.student_profile.first_name %> 
+            <%= @attendant.student_profile.last_name %>
+          </td>
+          <td><%= link_to 'See details', @attendant.student_profile %></td>
+        </tr>
+      <% end %>
+    <% end %>
+</table>

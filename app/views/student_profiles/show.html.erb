@@ -11,19 +11,26 @@
 </p>
 
 <p>
-  <strong>Citizen:</strong>
+  <strong>Role:</strong>
+  <% @user = User.find(@student_profile.user_id) %>
+  <%= @user.role %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <% @user = User.find(@student_profile.user_id) %>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Citizen ID:</strong>
   <%= @student_profile.citizen_id %>
 </p>
 
 <p>
-  <strong>Student:</strong>
+  <strong>Student ID:</strong>
   <%= @student_profile.student_id %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @student_profile.user_id %>
-</p>
-
 <%= link_to 'Edit', edit_student_profile_path(@student_profile) %> |
-<%= link_to 'Back', student_profiles_path %>
+<%= link_to 'Back', request.referrer %>

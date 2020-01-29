@@ -11,6 +11,12 @@
 </p>
 
 <p>
+  <strong>Role:</strong>
+  <% @user = User.find(@instructor_profile.user_id) %>
+  <%= @user.role %>
+</p>
+
+<p>
   <strong>Email:</strong>
   <% @user = User.find(@instructor_profile.user_id) %>
   <%= @user.email %>
@@ -32,4 +38,6 @@
 </p>
 
 <%= link_to 'Edit', edit_instructor_profile_path(@instructor_profile) %> |
-<%= link_to 'Back', courses_path %>
+<%= link_to 'Back', request.referrer %><br>
+
+<% %>
