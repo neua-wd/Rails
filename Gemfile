@@ -5,6 +5,8 @@ ruby '2.6.3'
 
 gem 'devise'
 
+gem 'pundit'
+
 gem 'therubyracer', platforms: :ruby
 
 gem 'twitter-bootstrap-rails'
