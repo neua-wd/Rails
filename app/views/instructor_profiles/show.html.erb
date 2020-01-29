@@ -11,12 +11,18 @@
 </p>
 
 <p>
-  <strong>Citizen:</strong>
+  <strong>Email:</strong>
+  <% @user = User.find(@instructor_profile.user_id) %>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Citizen ID:</strong>
   <%= @instructor_profile.citizen_id %>
 </p>
 
 <p>
-  <strong>Instructor:</strong>
+  <strong>Instructor ID:</strong>
   <%= @instructor_profile.instructor_id %>
 </p>
 
@@ -25,15 +31,5 @@
   <%= @instructor_profile.department_name %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @instructor_profile.user_id %>
-</p>
-
-<p>
-  <strong>Group:</strong>
-  <%= @instructor_profile.group_id %>
-</p>
-
 <%= link_to 'Edit', edit_instructor_profile_path(@instructor_profile) %> |
-<%= link_to 'Back', instructor_profiles_path %>
+<%= link_to 'Back', courses_path %>

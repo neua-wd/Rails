@@ -14,7 +14,9 @@ class InstructorProfilesController < ApplicationController
 
   # GET /instructor_profiles/new
   def new
-    @instructor_profile = InstructorProfile.new
+    @user = User.find(current_user.id)
+    @instructor_profile = @user.build_instructor_profile
+    # @instructor_profile = InstructorProfile.new
   end
 
   # GET /instructor_profiles/1/edit
@@ -24,7 +26,9 @@ class InstructorProfilesController < ApplicationController
   # POST /instructor_profiles
   # POST /instructor_profiles.json
   def create
-    @instructor_profile = InstructorProfile.new(instructor_profile_params)
+    @user = User.find(current_user.id)
+    @instructor_profile = @user.create_instructor_profile(instructor_profile_params)
+    # @instructor_profile = InstructorProfile.new(instructor_profile_params)
 
     respond_to do |format|
       if @instructor_profile.save
@@ -69,6 +73,7 @@ class InstructorProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instructor_profile_params
-      params.require(:instructor_profile).permit(:first_name, :last_name, :citizen_id, :instructor_id, :department_name, :user_id, :group_id)
+      user_id = current_user.id
+      params.require(:instructor_profile).permit(:first_name, :last_name, :citizen_id, :instructor_id, :department_name, :user_id)
     end
 end
