@@ -1,4 +1,4 @@
-class InstructorProfilePolicy < ApplicationPolicy
+class StudentProfilePolicy < ApplicationPolicy
   attr_reader :user, :profile
 
   def initialize(user, profile)
@@ -7,10 +7,10 @@ class InstructorProfilePolicy < ApplicationPolicy
   end
 
   def edit?
-    user.id == @profile.user_id
+    user.role == "Instructor"
   end
 
   def update?
-    user.id == @profile.user_id
+    user.role == "Instructor"
   end
 end

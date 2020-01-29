@@ -20,6 +20,7 @@ class StudentProfilesController < ApplicationController
 
   # GET /student_profiles/1/edit
   def edit
+    authorize @student_profile
   end
 
   # POST /student_profiles
@@ -42,6 +43,7 @@ class StudentProfilesController < ApplicationController
   # PATCH/PUT /student_profiles/1
   # PATCH/PUT /student_profiles/1.json
   def update
+    authorize @student_profile
     respond_to do |format|
       if @student_profile.update(student_profile_params)
         format.html { redirect_to @student_profile, notice: 'Student profile was successfully updated.' }
