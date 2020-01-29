@@ -73,7 +73,6 @@ class StudentProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_profile_params
-      user_id = current_user.id
       params.require(:student_profile).permit(:first_name, :last_name, :citizen_id, :student_id, :user_id)
     end
 end

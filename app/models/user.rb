@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :instructor_profile
-  has_one :student_profile
+  has_one :instructor_profile, dependent: :destroy
+  has_one :student_profile, dependent: :destroy
 
   has_many :group_additions
   has_many :groups, through: :group_additions
