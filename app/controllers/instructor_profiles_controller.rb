@@ -21,6 +21,8 @@ class InstructorProfilesController < ApplicationController
 
   # GET /instructor_profiles/1/edit
   def edit
+    @instructor_profile = InstructorProfile.find(params[:id])
+    authorize @instructor_profile
   end
 
   # POST /instructor_profiles
@@ -44,6 +46,7 @@ class InstructorProfilesController < ApplicationController
   # PATCH/PUT /instructor_profiles/1
   # PATCH/PUT /instructor_profiles/1.json
   def update
+    authorize @instructor_profile
     respond_to do |format|
       if @instructor_profile.update(instructor_profile_params)
         format.html { redirect_to @instructor_profile, notice: 'Instructor profile was successfully updated.' }
