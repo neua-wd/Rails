@@ -1,5 +1,8 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'See the students in this course', filter_index_path %>
+<br><br>
+
 <p>
   <strong>Course Title:</strong>
   <%= @course.title %>
@@ -16,6 +19,14 @@
   <%= @instructor.instructor_profile.first_name %>
   <%= @instructor.instructor_profile.last_name %>
 </p>
+
+<%# if current user owns the course%>
+<% if @course.user_id == current_user.id %>
+  <%= link_to 'Edit', edit_course_path(@course) %> |
+<% end %>
+
+<%= link_to 'Back', courses_path %>
+<br><br>
 
 <%# if the user is subscribed to or owns the course %>
 <% if @course.subscriptions.exists?(user_id: current_user.id) or @course.user_id == current_user.id %>
@@ -63,10 +74,3 @@
     <%= form.submit 'Create a new group' %>
   <% end %>
 <% end %>
-
-<%# if current user owns the course%>
-<% if @course.user_id == current_user.id %>
-  <%= link_to 'Edit', edit_course_path(@course) %> |
-<% end %>
-
-<%= link_to 'Back', courses_path %>

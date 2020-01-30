@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   resources :student_profiles
   get 'users/index'
   get 'home/index'
+
+  get  'new_student',  to: 'users#new'
+  post 'new_student',  to: 'users#add_user'
+
   resources :subscriptions
   resources :assignments
   resources :group_additions
@@ -20,6 +24,12 @@ Rails.application.routes.draw do
   resources :courses do
     resources :groups
     resources :subscriptions
+  end
+
+  resources :filter, only: [:index] do
+    collection do
+      get 'results'
+    end
   end
 
   root 'home#index'
