@@ -4,7 +4,7 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <p>Sign up as
-    <%= f.select :role, options_for_select([nil, "Instructor", "Student"], nil) %>
+    <%= f.select :role, options_for_select([nil, "Instructor", "Student", "Visitor"], nil) %>
   </p>
 
   <div class="field">
