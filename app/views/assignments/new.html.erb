@@ -1,5 +1,7 @@
 <%= link_to 'Back', @group %><br><br>
 
+<p id="notice"><%= notice %></p>
+
 <% @course = Course.find(params[:format]) %>
 <table class="table">
     <thead>

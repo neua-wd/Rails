@@ -34,7 +34,7 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       if @assignment.save
-        format.html { redirect_to add_group_users_path(@group.course_id), notice: 'Assignment was successfully created.' }
+        format.html { redirect_to new_group_assignment_path(@group, @group.course_id), notice: 'Student added' }
         format.json { render :show, status: :created, location: @assignment }
       else
         format.html { render :new }
