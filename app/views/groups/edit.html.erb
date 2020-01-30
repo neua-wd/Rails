@@ -11,28 +11,41 @@
       </div>
     <% end %>
 
-    <% if @group.project_status == "not assigned" or @group.project_status == "marked" %>
-      <div class="field">
-        <%= form.label :title %>
-        <%= form.text_field :project_title %>
-      </div>
+    <% if current_user.role == "Instructor" %>
+      <% if @group.project_status == "not assigned" or @group.project_status == "marked" %>
+        <div class="field">
+          <%= form.label :title %>
+          <%= form.text_field :project_title %>
+        </div>
 
-      <div class="field">
-        <%= form.label :description %>
-        <%= form.text_area :project_description %>
-      </div>
+        <div class="field">
+          <%= form.label :description %>
+          <%= form.text_area :project_description %>
+        </div>
 
-      <%= form.hidden_field :project_status, value: "not marked" %>
-      <%= form.submit 'Assign' %>
+        <%= form.hidden_field :project_status, value: "not marked" %>
+        <%= form.submit 'Assign' %>
 
-    <% else @group.project_status == "not marked" %>
+      <% else @group.project_status == "not marked" %>
 
-      <div class="field">
-        <%= form.label :score_out_of_100 %>
-        <%= form.text_field :score %>
-      </div>
+        <div class="field">
+          <%= form.label :score_out_of_100 %>
+          <%= form.text_field :score %>
+        </div>
 
-      <%= form.hidden_field :project_status, value: "marked" %>
-      <%= form.submit 'Assign' %>
+        <%= form.hidden_field :project_status, value: "marked" %>
+        <%= form.submit 'Assign' %>
+      <% end %>
+    <% else %>
+
+      <h3>Once confirmed, the name cannot be changed.<h3><br>
+
+      <p class="field">
+        <%= form.label :name %>
+        <%= form.text_field :name %>
+        <%= form.hidden_field :named, value: "named" %>
+
+        <%= form.submit 'Confirm' %>
+      </p>
     <% end %>
   <% end %>

@@ -7,6 +7,17 @@
   <%= @group.name %>
 </p>
 
+<% if @group.named == "not named" and 
+  (current_user.role == "Student" or current_user.role == "Visitor") and
+  @group.assignments.exists?(user_id: current_user.id) %>
+
+  <p>
+    You can name this group
+    <%= link_to 'here', edit_group_path(@group) %>
+  </p>
+  
+<% end %><br>
+
 <% if @group.project_status == "not marked" %>
   <p>
     <strong>Assignment: </strong><br>

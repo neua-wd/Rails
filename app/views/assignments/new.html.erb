@@ -33,7 +33,7 @@
             <% else %>
               <td>
                 <%= form_with(model: [ attendant, attendant.assignments.build ], local: true) do |form| %>
-                  <%= hidden_field_tag :group_id, params[:format] %>
+                  <%= form.hidden_field :group_id, value: params[:group_id] %>
                   <%= form.submit 'Add' %>
                 <% end %>
               </td>
@@ -63,7 +63,7 @@
             <% else %>
               <td>
                 <%= form_with(model: [ attendant, attendant.assignments.build ], local: true) do |form| %>
-                  <%= hidden_field_tag :group_id, params[:format] %>
+                  <%= form.hidden_field :group_id, value: params[:group_id] %>
                   <%= form.submit 'Add' %>
                 <% end %>
               </td>
@@ -92,7 +92,7 @@
             <% else %>
               <td>
                 <%= form_with(model: [ attendant, attendant.assignments.build ], local: true) do |form| %>
-                  <%= hidden_field_tag :group_id, params[:format] %>
+                  <%= form.hidden_field :group_id, value: params[:group_id] %>
                   <%= form.submit 'Add' %>
                 <% end %>
               </td>

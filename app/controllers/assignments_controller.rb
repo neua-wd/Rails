@@ -28,8 +28,8 @@ class AssignmentsController < ApplicationController
   # POST /assignments
   # POST /assignments.json
   def create
-    @group = Group.find(params[:group_id])
-    @assignment = @group.assignments.create(group_id: params[:group_id], user_id: params[:user_id])
+    @group = Group.find(assignment_params[:group_id])
+    @assignment = @group.assignments.create(group_id: assignment_params[:group_id], user_id: params[:user_id])
     # group_id: assignment_params[:group_id], user_id: params[:user_id]
 
     respond_to do |format|
