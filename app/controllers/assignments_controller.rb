@@ -16,7 +16,6 @@ class AssignmentsController < ApplicationController
   def new
     @group = Group.find(params[:group_id])
     @course = Course.find(@group.course_id)
-    authorize @course
   end
 
   # GET /assignments/1/edit
@@ -28,8 +27,7 @@ class AssignmentsController < ApplicationController
   def create
     @group = Group.find(assignment_params[:group_id])
     @course = Course.find(@group.course_id)
-    authorize @course
-    
+
     @assignment = @group.assignments.create(group_id: assignment_params[:group_id], user_id: params[:user_id])
     # group_id: assignment_params[:group_id], user_id: params[:user_id]
 

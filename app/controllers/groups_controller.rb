@@ -13,6 +13,8 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @assignments = @group.assignments
     
+    @course = Course.find(@group.course_id)
+    @subscriptions = @course.subscriptions
   end
 
   # GET /groups/new

@@ -83,7 +83,10 @@
 
 <% end %>
 
-<%= link_to 'Add a student to this group', new_group_assignment_path(@group, @group.course_id) %> 
+<% if @course.id == current_user.id %>
+  <%= link_to 'Add a student to this group', new_group_assignment_path(@group, @group.course_id) %> 
+<% end %>
+
 <% if @group.project_status == "not assigned" %>
   | <%= link_to 'Assign a project', edit_group_path(@group) %>
 <% elsif @group.project_status == "not marked" %>
