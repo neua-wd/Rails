@@ -32,7 +32,7 @@
 <% if @course.subscriptions.exists?(user_id: current_user.id) or @course.user_id == current_user.id %>
   <%# Show all the groups in this course%>
   <% @groups = @course.groups %>
-  <% if  @groups.size == 1 %>
+  <% if  @groups.size == 0 %>
     <strong>There is currently no group in this course</strong>
   <% else %>
     <h1>Groups</h1>
@@ -47,14 +47,12 @@
 
       <tbody>
         <% @groups.each do |group| %>
-          <% if group != @course.groups.first %>
-            <tr>
-              <td><%= group.name %></td>
-              <td><%= link_to 'Show', group %></td>
-              <td><%= link_to 'Edit', edit_group_path(group) %></td>
-              <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <% end %>
+          <tr>
+            <td><%= group.name %></td>
+            <td><%= link_to 'Show', group %></td>
+            <td><%= link_to 'Edit', edit_group_path(group) %></td>
+            <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
         <% end %>
       </tbody>
     </table>
