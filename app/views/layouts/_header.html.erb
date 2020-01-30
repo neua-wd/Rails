@@ -1,6 +1,11 @@
 <nav class="navbar navbar-inverse">
   <ul class="nav navbar-nav">
-    <li><%= link_to 'Home', courses_path %></li>
+    <% if user_signed_in? %>
+      <li><%= link_to 'Home', courses_path %></li>
+    <% else %>
+      <li><%= link_to 'Home', home_index_path %></li>
+    <% end %>
+    
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <% if user_signed_in? %>
