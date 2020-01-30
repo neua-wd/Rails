@@ -1,3 +1,5 @@
+<%= link_to 'Back', @group %><br><br>
+
 <% @course = Course.find(params[:format]) %>
 <table class="table">
     <thead>
@@ -51,5 +53,3 @@
       <% end %>
     <% end %>
 </table>
-
-<%= link_to 'Back', @group %>

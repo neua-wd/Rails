@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'Back', courses_path %> | 
+
+<%# if current user owns the course%>
+<% if @course.user_id == current_user.id %>
+  <%= link_to 'Edit', edit_course_path(@course) %> |
+<% end %>
+
 <%= link_to 'See all subscribers', users_index_path(@course) %>
 <br><br>
 
@@ -19,14 +26,6 @@
   <%= @instructor.instructor_profile.first_name %>
   <%= @instructor.instructor_profile.last_name %>
 </p>
-
-<%# if current user owns the course%>
-<% if @course.user_id == current_user.id %>
-  <%= link_to 'Edit', edit_course_path(@course) %> |
-<% end %>
-
-<%= link_to 'Back', courses_path %>
-<br><br>
 
 <%# if the user is subscribed to or owns the course %>
 <% if @course.subscriptions.exists?(user_id: current_user.id) or @course.user_id == current_user.id %>
