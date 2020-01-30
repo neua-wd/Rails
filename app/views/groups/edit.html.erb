@@ -1,33 +1,38 @@
-<table class="table">
-    <thead>
-      <th>Name</th>
-    </thead>
-    <% @course.subscriptions.each do |subscription| %>
-      <% @attendant = User.find(subscription.user_id) %>
-      
-      <% if @attendant.role == "Instructor" %>
-        <tr>
-          <td>
-              <%= @attendant.instructor_profile.first_name %> 
-              <%= @attendant.instructor_profile.last_name %> 
-          </td>
-          <td><%= link_to 'See details', @attendant.instructor_profile %></td>
-        </tr>
-      <% elsif @attendant.role == "Student" %>
-        <tr>
-          <td>
-            <%= @attendant.student_profile.first_name %> 
-            <%= @attendant.student_profile.last_name %>
-          </td>
-          <td><%= link_to 'See details', @attendant.student_profile %></td>
-        </tr>
-      <% end %>
+  <%= form_with(model: @group, local: true) do |form| %>
+    <% if @group.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+        <ul>
+          <% @group.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
-</table>
 
+    <% if @group.project_status == "not assigned" or @group.project_status == "marked" %>
+      <div class="field">
+        <%= form.label :title %>
+        <%= form.text_field :project_title %>
+      </div>
 
-<%= link_to 'Back', assignments_path %>
+      <div class="field">
+        <%= form.label :description %>
+        <%= form.text_area :project_description %>
+      </div>
 
+      <%= form.hidden_field :project_status, value: "not marked" %>
+      <%= form.submit 'Assign' %>
 
-<%= link_to 'Show', @group %> |
-<%= link_to 'Back', groups_path %>
+    <% else @group.project_status == "not marked" %>
+
+      <div class="field">
+        <%= form.label :score_out_of_100 %>
+        <%= form.text_field :score %>
+      </div>
+
+      <%= form.hidden_field :project_status, value: "marked" %>
+      <%= form.submit 'Assign' %>
+    <% end %>
+  <% end %>

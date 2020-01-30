@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_113520) do
+ActiveRecord::Schema.define(version: 2020_01_30_132027) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "title"
@@ -33,12 +33,14 @@ ActiveRecord::Schema.define(version: 2020_01_30_113520) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.string "name"
-    t.boolean "project_status", default: false
+    t.string "name", default: "Waiting to be named.."
+    t.string "project_status", default: "not assigned"
     t.integer "score"
     t.integer "course_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "project_title"
+    t.string "project_description"
     t.index ["course_id"], name: "index_groups_on_course_id"
   end
 

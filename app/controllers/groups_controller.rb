@@ -24,7 +24,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
-    
+    @group = Group.find(params[:id])
   end
 
   # def add
@@ -83,8 +83,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      name = "Waiting to be named.."
-      project_status = false
-      params.require(:group).permit(:name, :project_status, :score, :course_id)
+      params.require(:group).permit(:name, :project_status, :score, :course_id, :project_title, :project_description)
     end
 end

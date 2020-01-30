@@ -8,19 +8,23 @@
 </p>
 
 <p>
-  <strong>Project status:</strong>
-  <%= @group.project_status %>
-</p>
-
-<p>
-  <strong>Score:</strong>
-  <%= @group.score %>
-</p>
-
-<p>
-  <strong>Course:</strong>
+  <strong>Course ID:</strong>
   <%= @group.course_id %>
 </p>
+
+<% if @group.project_status == "not marked" %>
+  <p>
+    <strong>Assignment: </strong><br>
+    Title: <%= @group.project_title %><br>
+    Description <%= @group.project_description %>
+  </p>
+<% elsif @group.project_status == "marked" %>
+  <p>
+    <strong>Score:</strong>
+    <%= @group.score %>
+  </p>
+<% end %>
+
 <br>
 
 <p>
@@ -63,4 +67,11 @@
 </table>
 
 
-<%= link_to 'Add a student to this group', new_group_assignment_path(@group, @group.course_id) %>
+<%= link_to 'Add a student to this group', new_group_assignment_path(@group, @group.course_id) %> 
+<% if @group.project_status == "not assigned" %>
+  | <%= link_to 'Assign a project', edit_group_path(@group) %>
+<% elsif @group.project_status == "not marked" %>
+  | <%= link_to 'Mark the assignment', edit_group_path(@group) %>
+<% elsif @group.project_status == "marked" %>
+  | <%= link_to 'Assign a different assignment', edit_group_path(@group) %>
+<% end %>
