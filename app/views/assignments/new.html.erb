@@ -11,47 +11,94 @@
       <% @attendants = User.where(id: subscription.user_id) %>
       
       <% @attendants.each do |attendant| %>
-      <% if attendant.role == "Instructor" %>
-        <tr>
-          <td>
-              <%= attendant.instructor_profile.first_name %> 
-              <%= attendant.instructor_profile.last_name %> 
-          </td>
-          <td><%= link_to 'See details', attendant.instructor_profile %></td>
-
-          <% if @group.assignments.exists?(user_id: attendant.id) %>
-            <td>Added</td>
-          <% else %>
+        <%# list out the instructors %>
+        <% if attendant.role == "Instructor" %>
+          <tr>
             <td>
-              <%= form_with(model: [ attendant, attendant.assignments.build ], local: true) do |form| %>
-                <%= hidden_field_tag :group_id, params[:format] %>
-                <%= form.submit 'Add' %>
-              <% end %>
+                <%= attendant.instructor_profile.first_name %> 
+                <%= attendant.instructor_profile.last_name %> 
             </td>
-          <% end %>
-          
-        </tr>
-      <% elsif attendant.role == "Student" %>
-        <tr>
-          <td>
-            <%= attendant.student_profile.first_name %> 
-            <%= attendant.student_profile.last_name %>
-          </td>
-          <td><%= link_to 'See details', attendant.student_profile %></td>
+            <td><%= link_to 'See details', attendant.instructor_profile %></td>
 
-          <% if @group.assignments.exists?(user_id: attendant.id) %>
-            <td>Added</td>
-          <% else %>
+            <%# check if user already has a group%>
+            <% @added = false %>
+            <% @course.groups.each do |group| %>
+              <% if group.assignments.exists?(user_id: attendant.id) %>
+                <% @added = true %>
+              <% end %>
+            <% end %>
+
+            <% if @added == true %>
+              <td>Already has a group</td>
+            <% else %>
+              <td>
+                <%= form_with(model: [ attendant, attendant.assignments.build ], local: true) do |form| %>
+                  <%= hidden_field_tag :group_id, params[:format] %>
+                  <%= form.submit 'Add' %>
+                <% end %>
+              </td>
+            <% end %>
+            
+          </tr>
+
+        <%# list out the students %>
+        <% elsif attendant.role == "Student" %>
+          <tr>
             <td>
-              <%= form_with(model: [ attendant, attendant.assignments.build ], local: true) do |form| %>
-                <%= hidden_field_tag :group_id, params[:format] %>
-                <%= form.submit 'Add' %>
-              <% end %>
+              <%= attendant.student_profile.first_name %> 
+              <%= attendant.student_profile.last_name %>
             </td>
-          <% end %>
+            <td><%= link_to 'See details', attendant.student_profile %></td>
 
-        </tr>
-      <% end %>
+            <%# check if user already has a group%>
+            <% @added = false %>
+            <% @course.groups.each do |group| %>
+              <% if group.assignments.exists?(user_id: attendant.id) %>
+                <% @added = true %>
+              <% end %>
+            <% end %>
+
+            <% if @added == true %>
+              <td>Already has a group</td>
+            <% else %>
+              <td>
+                <%= form_with(model: [ attendant, attendant.assignments.build ], local: true) do |form| %>
+                  <%= hidden_field_tag :group_id, params[:format] %>
+                  <%= form.submit 'Add' %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+
+        <%# list out the visitors %>
+        <% elsif attendant.role == "Visitor" %>
+          <tr>
+            <td>
+              <%= attendant.visitor_profile.first_name %> 
+              <%= attendant.visitor_profile.last_name %>
+            </td>
+            <td><%= link_to 'See details', attendant.visitor_profile %></td>
+
+            <%# check if user already has a group%>
+            <% @added = false %>
+            <% @course.groups.each do |group| %>
+              <% if group.assignments.exists?(user_id: attendant.id) %>
+                <% @added = true %>
+              <% end %>
+            <% end %>
+
+            <% if @added == true %>
+              <td>Already has a group</td>
+            <% else %>
+              <td>
+                <%= form_with(model: [ attendant, attendant.assignments.build ], local: true) do |form| %>
+                  <%= hidden_field_tag :group_id, params[:format] %>
+                  <%= form.submit 'Add' %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
       <% end %>
     <% end %>
 </table>

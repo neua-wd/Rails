@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_one :instructor_profile, dependent: :destroy
   has_one :student_profile, dependent: :destroy
+  has_one :visitor_profile, dependent: :destroy
 
   has_many :assignments
   has_many :groups, through: :assignments

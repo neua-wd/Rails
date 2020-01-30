@@ -58,6 +58,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       new_instructor_profile_path
     elsif resource.role == "Student"
       new_student_profile_path
+    elsif resource.role == "Visitor"
+      new_visitor_profile_path
     end
   end
 

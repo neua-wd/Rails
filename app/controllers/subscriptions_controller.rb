@@ -30,7 +30,7 @@ class SubscriptionsController < ApplicationController
 
     respond_to do |format|
       if @subscription.save
-        format.html { redirect_to courses_path, notice: 'Subscription was successfully created.' }
+        format.html { redirect_to courses_path, notice: 'You are subscribed!' }
         format.json { render :show, status: :created, location: @subscription }
       else
         format.html { render :new }

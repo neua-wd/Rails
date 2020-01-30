@@ -33,7 +33,9 @@
         <%# if the user does not own the course %>
         <% if course.user_id != current_user.id %>
           <%# if the user has a profile %>
-          <% if !current_user.instructor_profile.nil? or !current_user.student_profile.nil? %>
+          <% if !current_user.instructor_profile.nil? or 
+            !current_user.student_profile.nil? or 
+            !current_user.visitor_profile.nil? %>
             <%# if the user is subscribed%>
             <% if course.subscriptions.exists?(user_id: current_user.id) %>
               <td>Subscribed</td>

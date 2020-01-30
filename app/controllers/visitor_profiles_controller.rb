@@ -14,17 +14,20 @@ class VisitorProfilesController < ApplicationController
 
   # GET /visitor_profiles/new
   def new
-    @visitor_profile = VisitorProfile.new
+    @user = User.find(current_user.id)
+    @visitor_profile = @user.build_visitor_profile
   end
 
   # GET /visitor_profiles/1/edit
   def edit
+    authorize @visitor_profile
   end
 
   # POST /visitor_profiles
   # POST /visitor_profiles.json
   def create
-    @visitor_profile = VisitorProfile.new(visitor_profile_params)
+    @user = User.find(current_user.id)
+    @visitor_profile = @user.create_visitor_profile(visitor_profile_params)
 
     respond_to do |format|
       if @visitor_profile.save
@@ -40,6 +43,7 @@ class VisitorProfilesController < ApplicationController
   # PATCH/PUT /visitor_profiles/1
   # PATCH/PUT /visitor_profiles/1.json
   def update
+    authorize @visitor_profile
     respond_to do |format|
       if @visitor_profile.update(visitor_profile_params)
         format.html { redirect_to @visitor_profile, notice: 'Visitor profile was successfully updated.' }
