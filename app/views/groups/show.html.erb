@@ -7,7 +7,7 @@
   <%= @group.name %>
 </p>
 
-<% if @group.named == "not named" and 
+<% if @group.named != "named" and 
   (current_user.role == "Student" or current_user.role == "Visitor") and
   @group.assignments.exists?(user_id: current_user.id) %>
 
@@ -83,14 +83,14 @@
 
 <% end %>
 
-<% if @course.id == current_user.id %>
-  <%= link_to 'Add a student to this group', new_group_assignment_path(@group, @group.course_id) %> 
+<% if @course.user_id == current_user.id %>
+  <%= link_to 'Add a student to this group', new_group_assignment_path(@group, @group.course_id) %>
+  <% if @group.project_status == "not assigned" %>
+    | <%= link_to 'Assign a project', edit_group_path(@group) %>
+  <% elsif @group.project_status == "not marked" %>
+    | <%= link_to 'Mark the assignment', edit_group_path(@group) %>
+  <% elsif @group.project_status == "marked" %>
+    | <%= link_to 'Assign a different assignment', edit_group_path(@group) %>
+  <% end %> 
 <% end %>
 
-<% if @group.project_status == "not assigned" %>
-  | <%= link_to 'Assign a project', edit_group_path(@group) %>
-<% elsif @group.project_status == "not marked" %>
-  | <%= link_to 'Mark the assignment', edit_group_path(@group) %>
-<% elsif @group.project_status == "marked" %>
-  | <%= link_to 'Assign a different assignment', edit_group_path(@group) %>
-<% end %>

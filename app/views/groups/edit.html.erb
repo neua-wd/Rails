@@ -26,7 +26,7 @@
         <%= form.hidden_field :project_status, value: "not marked" %>
         <%= form.submit 'Assign' %>
 
-      <% else @group.project_status == "not marked" %>
+      <% elsif @group.project_status == "not marked" %>
 
         <div class="field">
           <%= form.label :score_out_of_100 %>

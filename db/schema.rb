@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_150535) do
+ActiveRecord::Schema.define(version: 2020_01_30_183502) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2020_01_30_150535) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "project_title"
     t.string "project_description"
-    t.string "named", default: "not named"
+    t.string "named"
     t.index ["course_id"], name: "index_groups_on_course_id"
   end
 

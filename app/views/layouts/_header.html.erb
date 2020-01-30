@@ -13,6 +13,8 @@
         <li><%= link_to 'Profile', current_user.instructor_profile %></li>
       <% elsif current_user.role == "Student" %>
         <li><%= link_to 'Profile', current_user.student_profile %></li>
+      <% elsif current_user.role == "Visitor" %>
+        <li><%= link_to 'Profile', current_user.visitor_profile %></li>
       <% end %>
       <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
     <% else %>
