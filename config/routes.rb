@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   resources :assignments
   resources :group_additions
   resources :instructor_profiles
-  resources :groups
+  
+  resources :groups do
+    resources :assignments
+  end
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -19,6 +22,11 @@ Rails.application.routes.draw do
 
   resources :users do
     resource :instructor_profile
+    resources :assignments
+
+    collection do
+      get 'add_group'
+    end
   end
 
   resources :courses do

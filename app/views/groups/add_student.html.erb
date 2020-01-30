@@ -20,6 +20,11 @@
             <%= @attendant.student_profile.last_name %>
           </td>
           <td><%= link_to 'See details', @attendant.student_profile %></td>
+
+          <%= form_with(model: [ @group, @group.assignments.build ], local: true) do |form| %>
+            <%= form.submit 'Add' %>
+          <% end %>
+
         </tr>
       <% end %>
     <% end %>
@@ -27,7 +32,3 @@
 
 
 <%= link_to 'Back', assignments_path %>
-
-
-<%= link_to 'Show', @group %> |
-<%= link_to 'Back', groups_path %>

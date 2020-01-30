@@ -20,6 +20,11 @@ class UsersController < ApplicationController
      end
   end
 
+  def add_group
+    @course = Course.find(params[:format])
+    @groups = @course.groups
+  end
+
   private
 
     def user_params

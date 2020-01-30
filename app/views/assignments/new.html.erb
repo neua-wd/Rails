@@ -1,0 +1,53 @@
+<% @course = Course.find(params[:format]) %>
+<table class="table">
+    <thead>
+      <th>Name</th>
+    </thead>
+    <% @course.subscriptions.each do |subscription| %>
+      <% @attendants = User.where(id: subscription.user_id) %>
+      
+      <% @attendants.each do |attendant| %>
+      <% if attendant.role == "Instructor" %>
+        <tr>
+          <td>
+              <%= attendant.instructor_profile.first_name %> 
+              <%= attendant.instructor_profile.last_name %> 
+          </td>
+          <td><%= link_to 'See details', attendant.instructor_profile %></td>
+
+          <% if @group.assignments.exists?(user_id: attendant.id) %>
+            <td>Added</td>
+          <% else %>
+            <td>
+              <%= form_with(model: [ attendant, attendant.assignments.build ], local: true) do |form| %>
+                <%= hidden_field_tag :group_id, params[:format] %>
+                <%= form.submit 'Add' %>
+              <% end %>
+            </td>
+          <% end %>
+          
+        </tr>
+      <% elsif attendant.role == "Student" %>
+        <tr>
+          <td>
+            <%= attendant.student_profile.first_name %> 
+            <%= attendant.student_profile.last_name %>
+          </td>
+          <td><%= link_to 'See details', attendant.student_profile %></td>
+
+          <% if @group.assignments.exists?(user_id: attendant.id) %>
+            <td>Added</td>
+          <% else %>
+            <td>
+              <%= form_with(model: [ attendant, attendant.assignments.build ], local: true) do |form| %>
+                <%= hidden_field_tag :group_id, params[:format] %>
+                <%= form.submit 'Add' %>
+              <% end %>
+            </td>
+          <% end %>
+
+        </tr>
+      <% end %>
+      <% end %>
+    <% end %>
+</table>

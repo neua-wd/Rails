@@ -10,6 +10,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @group = Group.find(params[:id])
   end
 
   # GET /groups/new
@@ -21,7 +22,12 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
+    
   end
+
+  # def add
+  #   @assignment = @group
+  # end
 
   # POST /groups
   # POST /groups.json

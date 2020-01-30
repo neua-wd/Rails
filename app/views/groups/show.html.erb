@@ -20,5 +20,7 @@
   <%= @group.course_id %>
 </p>
 
+<%= link_to 'Add a student to this group', new_group_assignment_path(@group, @group.course_id) %> | 
+
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>

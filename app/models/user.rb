@@ -7,8 +7,8 @@ class User < ApplicationRecord
   has_one :instructor_profile, dependent: :destroy
   has_one :student_profile, dependent: :destroy
 
-  has_many :group_additions
-  has_many :groups, through: :group_additions
+  has_many :assignments
+  has_many :groups, through: :assignments
 
   has_many :subscriptions
   has_many :courses, through: :subscriptions
