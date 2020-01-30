@@ -1,9 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<%= form_tag(results_filter_index_path, method: "get") do %>
-  <table>
-    <tr>
-      <td><%= label_tag(:first_name, "First name:") %></td>
+<table>
+  <tr>
+    <%= form_tag(results_filter_index_path, method: "get") do %>
+      <td><%= label_tag("Filter by student details") %></td>
+
+      <td><%= label_tag(:first_name, "| First name:") %></td>
       <td><%= text_field_tag(:first_name) %></td>
 
       <td><%= label_tag(:last_name, "Last name:") %></td>
@@ -13,9 +15,20 @@
       <td><%= text_field_tag(:student_id) %></td>
 
       <td><%= submit_tag("Filter") %></td>
-    </tr>
-  </table>
-<% end %>
+    <% end %>
+  </tr>
+  <tr>
+    <%= form_tag(results_filter_index_path, method: "get") do %>
+      <td><%= label_tag("Or filter by Groups") %></td>
+      <td><%= label_tag(:group_name, "| Group Name:") %></td>
+      <td><%= text_field_tag(:group_name) %></td>
+
+      <td><%= submit_tag("Filter") %></td>
+    <% end %>
+  </tr>
+</table>
+
+<strong class="text-danger">*If the filter button does not respond please refresh the page.*</strong><br>
 
 <% if @student_profiles.size > 1 %>
   <h2>Found <%= @student_profiles.size %> students</h2><br>
